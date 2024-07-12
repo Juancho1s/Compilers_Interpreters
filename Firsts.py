@@ -1,5 +1,5 @@
 firsts = {
-    "PROGRAM": ["!int"],
+    "PROGRAM": ["!init"],
     "BODY": ["var", "{"],
     "DECLARE": ["var"],
     "IDENTIFIERS": ["identifiers"],
