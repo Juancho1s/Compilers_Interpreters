@@ -10,5 +10,19 @@ firsts = {
     "EXPRESION": ["+", "-", "||", "{", "identifier", "true", "string", "number"],
     "EXI": ["+", "-", "||", "{", "identifier", "true", "string", "number"],
     "EXP": ["+", "-", "||", "{", "identifier", "true", "string", "number"],
-    "REL": ["=", "<", ">", "<=", ">=", "!="]
+    "REL": ["=", "<", ">", "<=", ">=", "!="],
+    "ASIGN": ["identifier"],
+    "TERM": ["{", "identifier", "true", "string", "number"],
+    "RIL": ["*", ",", "&&", ""],
+    "FACTOR": ["{", "identifier", "true", "string", "number"],
+    "STATEMENTS": ["identifiers"],
+    "FOR STAT": ["for"],
+    "CONTER": ["id"],
+    "WHILE STAT": ["while"],
+    "INPUT": ["read"],
+    "ROS": ["identifier"],
+    "OUTPUT": ["write"],
+    "IF STAT": ["if"],
+    "ELSE": ["else", ""],
+    "ROT": ["+", "-", "||", "{", "identifier", "true", "string", "number"]
 }
