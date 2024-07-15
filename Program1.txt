@@ -1,0 +1,6 @@
+!init identifier;
+var identifier : integer;
+{
+    x = 42;
+}
+¡end

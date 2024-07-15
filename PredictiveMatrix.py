@@ -1,17 +1,8 @@
-{
-    "PROGRAM": {
-        "!init": ["!init", "identifier", ";", "BODY", "¡end"]
-    },
-    "BODY": {
-        "var": ["DECLARE", "MAIN"], 
-        "{": ["MAIN"]
-    },
-    "DECLARE": {
-        "var": ["var", "IDENTIFIERS", ":", "TYPES"]
-    },
-    "IDENTIFIERS": {
-        "identifier": ["identifier", ";", "IDENTIFIERS'"]
-    },
+predictiveMatrix = {
+    "PROGRAM": {"!init": ["!init", "identifier", ";", "BODY", "¡end"]},
+    "BODY": {"var": ["DECLARE", "MAIN"], "{": ["MAIN"]},
+    "DECLARE": {"var": ["var", "IDENTIFIERS", ":", "TYPES"]},
+    "IDENTIFIERS": {"identifier": ["identifier", ";", "IDENTIFIERS'"]},
     "IDENTIFIERS'": {
         "identifier": ["identifier", ";", "IDENTIFIERS'"],
         ":": ["epsilon"],
