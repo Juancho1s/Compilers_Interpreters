@@ -1,7 +1,7 @@
 grammar = {
   "PROGRAM": [["!init", "identifier", ";", "BODY", "¡end"]],
   "BODY": [["DECLARE", "MAIN"], ["MAIN"]],
-  "DECLARE": [["var", "IDENTIFIERS", ":", "TYPES"]],
+  "DECLARE": [["var", "IDENTIFIERS", ":", "TYPES", ";"]],
   "IDENTIFIERS": [["identifier", ";", "IDENTIFIERS'"]],
   "IDENTIFIERS'": [["identifier", ";", "IDENTIFIERS'"], [""]],
   "TYPES": [["DEFAULT"]],
@@ -20,7 +20,7 @@ grammar = {
   "STATEMENTS": [["STATEMENT", ";", "STATEMENTS'"]],
   "STATEMENTS'": [["STATEMENT", ";", "STATEMENTS'"], [""]],
   "FOR STAT": [["for", "CONTER", "do", "{", "STATEMENTS", "}"]],
-  "CONTER": [["identifier", ":=", "EXPRESION", "for", "ROT"]],
+  "CONTER": [["identifier", ":", "EXPRESION", "for", "ROT"]],
   "WHILE STAT": [["while", "EXPRESION", "do", "{", "STATEMENTS", "}"]],
   "INPUT": [["read", "{", "ROS", "}"]],
   "ROS": [["identifier", ",", "ROS"], ["identifier"]],

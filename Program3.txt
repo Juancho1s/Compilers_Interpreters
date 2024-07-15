@@ -1,8 +1,7 @@
-!init exampleProgram;
-var y : decimal;
+!init identifier;
 {
-    for i := 0 for y {
-        y = y + 1.5;
+    for identifier : number for identifier do {
+        identifier = identifier + number;
     }
 }
 ¡end

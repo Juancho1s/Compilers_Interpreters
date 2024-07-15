@@ -17,9 +17,9 @@ class LL1Parser:
             top = stack.pop()
             current_token = tokens[index]
 
-            print(f"Stack: {stack}")
-            print(f"Current Token: {current_token}")
-            print(f"Remaining Tokens: {tokens[index:]}")
+            # print(f"Stack: {stack}")
+            # print(f"Current Token: {current_token}")
+            # print(f"Remaining Tokens: {tokens[index:]}")
 
             if top == current_token:
                 index += 1
@@ -104,7 +104,7 @@ print("Valid Example:")
 
 content = ""
 
-with open("Program1.txt", "r", encoding="utf-8") as file:  # Ensure proper encoding
+with open("Program3.txt", "r", encoding="utf-8") as file:  # Ensure proper encoding
     content = file.read()
 
 print("Program Content:\n", content)

@@ -1,7 +1,7 @@
-!init anotherProgram;
+!init identifier;
 {
-    if x > 0 then {
-        x = x - 1;
+    if identifier > number then {
+        identifier = identifier - number;
     } endif;
 }
 ¡end
