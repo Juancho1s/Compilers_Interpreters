@@ -1,0 +1,42 @@
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore node_modules directory
+node_modules
+
+# Ignore log files
+*.log
+
+# Ignore build directories
+dist/
+build/
+
+# Ignore dependency directories
+vendor/
+composer.lock
+
+# Ignore environment variable files
+.env
+
+# Ignore Python bytecode
+__pycache__
+*.py[cod]
+
+# Ignore compiled files
+*.o
+*.out
+*.class
+
+# Ignore package managers lock files
+yarn.lock
+package-lock.json
+
+# Ignore IDE specific files
+.vscode
+.idea
+
+# Ignore temporary files
+*.tmp
+*.swp
+*.swo

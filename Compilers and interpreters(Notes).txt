@@ -1,0 +1,10 @@
+Wednesday 08 May, 2024{
+	Tokens:
+		They are identifiers to know 
+		Activity(lexical Analizer):
+			let grou8A;
+			let calification;
+			if(group8A){
+				calification = 6;
+			}
+}
