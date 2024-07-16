@@ -1,5 +1,5 @@
 grammar = {
-  "PROGRAM": [["!init", "identifier", ";", "BODY", "¡end"]],
+  "PROGRAM": [["¡init", "identifier", ";", "BODY", "end!"]],
   "BODY": [["DECLARE", "MAIN"], ["MAIN"]],
   "DECLARE": [["var", "IDENTIFIERS", ":", "TYPES", ";"]],
   "IDENTIFIERS": [["identifier", ";", "IDENTIFIERS'"]],

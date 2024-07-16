@@ -1,6 +1,6 @@
-!init identifier;
-var identifier : integer;
+¡init $myProgram;
+var $s1 := 123;
 {
-    identifier = number;
+    $s1 = 321;
 }
-!end
+end!
