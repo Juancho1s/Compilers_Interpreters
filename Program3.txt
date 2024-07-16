@@ -1,0 +1,7 @@
+!init identifier;
+{
+    for identifier : number for identifier do {
+        identifier = identifier + number;
+    }
+}
+¡end

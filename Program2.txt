@@ -1,0 +1,7 @@
+!init identifier;
+{
+    if identifier > number then {
+        identifier = identifier - number;
+    } endif;
+}
+¡end
