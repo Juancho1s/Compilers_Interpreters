@@ -3,4 +3,4 @@ var identifier : integer;
 {
     identifier = number;
 }
-¡end
+!end

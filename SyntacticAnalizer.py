@@ -7,12 +7,13 @@ class LexicalAnalyzer:
         self.currentLine = 1
         self.tokensTxtPaht = tokensTxtPath
         self.errorsTxtPath = errorsTxtPath
+        self.tokensHolder = []
         self.reservedWords = ["¡init", "end!", "array", "then", "var", "endif", "integer", "repeat", "else", "until", "string", "for", "write", "do", "if", "char", "while", "bool", "read", "true", "false", "of", "decimal", "program"]
     
         
     def getFileContent(self, path):
         try:
-            with open(path, 'r') as file:
+            with open(path, 'r', encoding="utf-8") as file:
                 return file.read()
         except FileNotFoundError:
             print(f"The file at {path} was not found.")
@@ -54,8 +55,14 @@ class LexicalAnalyzer:
 
     def write(self, currentToken, path, message):
         try:
-            with open(path, "a") as file:
-                file.write(message)
+            with open(path, "a", encoding="utf-8") as file:
+                if "ignore" not in message: 
+                    if any(i in message for i in ["reserved word", "arithmetic", "relational", "logical", "assignment"]):
+                        self.tokensHolder.append(currentToken["token"])
+                        
+                    else: 
+                        self.tokensHolder.append(message)
+                        # file.write(message)
                 
             return (True, {
                 "type": "",
@@ -67,7 +74,7 @@ class LexicalAnalyzer:
             return (False, None)
         
     def generateToken(self, content):
-        if content == "": return
+        if content == "": return []
         
         currentToken = {
             "type": "",
@@ -84,42 +91,43 @@ class LexicalAnalyzer:
             transition = self.get_transition(content[i], self.currentState)
 
             if transition is None:
-                writing = self.write(currentToken, self.errorsTxtPath, f"Lexical error at line {self.currentLine}: invalid character '{content[i]}'")
-                return
+                print(f"Lexical error at line {self.currentLine}: invalid character '{content[i]}'")
+                return []
 
             if transition[0] == -1:
                 
                 if self.currentState in finalStages:
                     self.currentState = 1
-                    writing = self.write(currentToken, self.tokensTxtPaht, f"{currentToken['type']}\n")
+                    writing = self.write(currentToken, self.tokensTxtPaht, f"{currentToken['type']}")
                     
-                    if writing[0] == False: return
+                    if writing[0] == False: return []
                     
                     currentToken = writing[1]
                     continue
                     
                 else:
-                    writing = self.write(currentToken, self.errorsTxtPath, f"Lexical error at line {self.currentLine}: invalid token")
-                    return
+                    print(f"Lexical error at line {self.currentLine}: invalid token")
+                    return []
 
             self.currentState = transition[0]
             currentToken["type"] = codes[transition[1]]
             currentToken["token"] += content[i]
                 
             if transition[1] == 600 and not self.coincidence(currentToken["token"]):
-                writing = self.write(currentToken, self.errorsTxtPath, f"Lexical error at line {self.currentLine}: invalid reserved word")
-                return
+                print(f"Lexical error at line {self.currentLine}: invalid reserved word")
+                return []
             
             i += 1
             
             if i == len(content):
                 if self.currentState in finalStages:
-                    writing = self.write(currentToken, self.tokensTxtPaht, f"{currentToken['type']}\n")
+                    writing = self.write(currentToken, self.tokensTxtPaht, f"{currentToken['type']}")
                 
                 else:
-                    writing = self.write(currentToken, self.errorsTxtPath, f"Lexical error at line {self.currentLine}: invalid token")
-
-                return
+                    print(f"Lexical error at line {self.currentLine}: invalid token")
+                    return []
+                
+                return self.tokensHolder
    
                 
     def coincidence(self, word):
@@ -148,4 +156,6 @@ if __name__ == "__main__":
     
     content = myInstance.getFileContent("C:\\Users\\POERT\\Desktop\\Universidad\\8th cuater\\compilers and interpreters\\TestFiles\\code.txt")
 
-    myInstance.generateToken(content)
+    myTokens = myInstance.generateToken(content)
+    
+    print(myTokens)
