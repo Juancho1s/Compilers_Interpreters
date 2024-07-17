@@ -22,7 +22,7 @@ class LL1Parser:
                 index += 1
             elif top in self.grammar and current_token in self.parsing_table[top]:
                 rule = self.parsing_table[top][current_token]
-                print(f"Applying Rule: {top} -> {rule}")
+                print(f"Applying Rule: {top} ->\t\t{rule}")
                 if rule != ["epsilon"]:
                     stack.extend(rule[::-1])
             else:

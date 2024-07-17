@@ -1,7 +1,10 @@
-!init identifier;
+¡init $AnotherProgram;
+var $s1 := '';
 {
-    if identifier > number then {
-        identifier = identifier - number;
+    $s1 = $s1 + 'Hello World!';
+
+    if $x > 2 then {
+        $y = $x - 1;
     } endif;
 }
-¡end
+end!
