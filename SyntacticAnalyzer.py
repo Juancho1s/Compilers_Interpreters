@@ -1,6 +1,6 @@
 from PredictiveMatrix import predictiveMatrix
 from Grammar import grammar
-from LexicalAnalizer import LexicalAnalyzer
+from LexicalAnalyzer import LexicalAnalyzer
 
 
 class LL1Parser:
