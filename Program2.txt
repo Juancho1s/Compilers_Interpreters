@@ -1,10 +1,9 @@
 ¡init $AnotherProgram;
-var $s1 := '';
 {
-    $s1 = $s1 + 'Hello World!';
-
-    if $x > 2 then {
-        $y = $x - 1;
-    } endif;
+    if $s < 4 then{
+        $s2 = 4 + $s;
+    }else{
+        $s2 = 4 - $s; 
+    }endif
 }
 end!
