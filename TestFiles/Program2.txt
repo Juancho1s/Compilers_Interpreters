@@ -1,4 +1,7 @@
 ¡init $AnotherProgram;
+var $s1 := '';
+var $s2 := '';
+var $s3 := 23;
 {
     if $s < 4 then{
         $s2 = 4 + $s;

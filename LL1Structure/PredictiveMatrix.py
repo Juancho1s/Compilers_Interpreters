@@ -1,7 +1,11 @@
 predictiveMatrix = {
     "PROGRAM": {"¡init": ["¡init", "identifier", ";", "BODY", "end!"]},
     "BODY": {"var": ["DECLARE", "MAIN"], "{": ["MAIN"]},
-    "DECLARE": {"var": ["var", "IDENTIFIERS", ":=", "TYPES", ";"]},
+    "DECLARE": {"var": ["var", "IDENTIFIERS", ":=", "TYPES", ";", "DECLARE'"]},
+    "DECLARE'": {
+        "var": ["var", "IDENTIFIERS", ":=", "TYPES", ";", "DECLARE'"],
+        "{": ["epsilon"]
+    },
     "IDENTIFIERS": {"identifier": ["identifier"]},
     "IDENTIFIERS'": {
         "identifier": ["identifier"],

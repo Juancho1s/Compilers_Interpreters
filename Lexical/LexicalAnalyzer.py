@@ -1,4 +1,4 @@
-from TransitionTable import transitionTable, finalStages, codes
+from .TransitionTable import transitionTable, finalStages, codes
 
 
 class LexicalAnalyzer:
@@ -8,6 +8,7 @@ class LexicalAnalyzer:
         self.tokensTxtPaht = tokensTxtPath
         self.errorsTxtPath = errorsTxtPath
         self.tokensHolder = []
+        self.tokensSemantics = []
         self.reservedWords = ["¡init", "end!", "array", "then", "var", "endif", "integer", "repeat", "else", "until", "string", "for", "write", "do", "if", "char", "while", "bool", "read", "true", "false", "of", "decimal", "program"]
     
         
@@ -59,10 +60,11 @@ class LexicalAnalyzer:
                 if "ignore" not in message: 
                     if any(i in message for i in ["reserved word", "arithmetic", "relational", "logical", "assignment"]):
                         self.tokensHolder.append(currentToken["token"])
+                        self.tokensSemantics.append(currentToken["token"])
                         
                     else: 
                         self.tokensHolder.append(message)
-                        # file.write(message)
+                        self.tokensSemantics.append(currentToken["token"])
                 
             return (True, {
                 "type": "",
@@ -127,7 +129,10 @@ class LexicalAnalyzer:
                     print(f"Lexical error at line {self.currentLine}: invalid token")
                     return []
                 
-                return self.tokensHolder
+                return {
+                    "tokensAnalysis": self.tokensHolder,
+                    "tokens": self.tokensSemantics
+                }
    
                 
     def coincidence(self, word):

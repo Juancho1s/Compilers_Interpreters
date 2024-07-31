@@ -2,6 +2,7 @@ follows = {
     "PROGRAM": ["$"],
     "BODY": ["¡end"],
     "DECLARE": ["{"],
+    "DECLARE'": ["{"],
     "IDENTIFIERS": [":"],
     "IDENTIFIERS'": [":"],
     "TYPES": [";"],

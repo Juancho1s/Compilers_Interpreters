@@ -2,6 +2,7 @@ firsts = {
     "PROGRAM": ["¡init"],
     "BODY": ["var", "{"],
     "DECLARE": ["var"],
+    "DECLARE'": ["var", "epsilon"],
     "IDENTIFIERS": ["identifier"],
     "IDENTIFIERS'": ["identifier", "epsilon"],
     "TYPES": ["integer", "decimal", "string", "bool"],
