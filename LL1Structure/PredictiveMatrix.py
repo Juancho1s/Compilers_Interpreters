@@ -157,12 +157,7 @@ predictiveMatrix = {
     "ELSE": {"else": ["else", "{", "STATEMENTS", "}"], "endif": ["epsilon"]},
     "ROT": {
         "identifier": ["EXPRESION"],
-        "true": ["EXPRESION"],
-        "string": ["EXPRESION"],
         "integer": ["EXPRESION"],
-        "decimal": ["EXPRESION"],
-        "{": ["EXPRESION"],
         "+": ["EXPRESION"],
-        "-": ["EXPRESION"],
     },
 }
