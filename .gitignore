@@ -40,3 +40,6 @@ package-lock.json
 *.tmp
 *.swp
 *.swo
+
+# Ignore the virtual environment
+.venv/

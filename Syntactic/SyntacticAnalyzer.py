@@ -1,5 +1,5 @@
 from Semantic.SymbolTable import symbolicTable
-import Semantic.SemanticAnalyzer
+from Semantic.SemanticAnalyzer import SemanticAnalysis
 
 
 class LL1Parser:
@@ -9,6 +9,7 @@ class LL1Parser:
         self.start_symbol = start_symbol
 
     def parse(self, tokens):
+        semantics = SemanticAnalysis(tokens)
         stack = ['$', self.start_symbol]
         tokens["tokensAnalysis"].append("$")
         index = 0
@@ -20,11 +21,20 @@ class LL1Parser:
         while len(stack) > 0:
             top = stack.pop()
             
+            # set for each semantic flag is any conincidence
+            semantics.semanticFlagsSet(index, top)
+            
             # token of syntactic analysis
             current_token = tokens["tokensAnalysis"][index]
                 
             # analysis of tokens grammar
             if top == current_token:
+                # Analysis of each corresponding structure or operation in semantics processes
+                if not semantics.semanticAnalysis(index):
+                    # print an error
+                    print("Error in semantic analysis")
+                    return False
+                
                 # consecuence
                 index += 1
                     
