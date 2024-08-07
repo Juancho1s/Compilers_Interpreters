@@ -1,0 +1,1 @@
+print("True" if (4 == "4") else "False")

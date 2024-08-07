@@ -1,5 +1,4 @@
 from .SymbolTable import symbolicTable
-from decimal import Decimal
 
 class SemanticAnalysis:
     
@@ -8,9 +7,11 @@ class SemanticAnalysis:
         
         # semantic data types
         self.dataTypes = ["integer", "decimal", "string", "bool"]
+        # will work with the previous declaration in order to know the type of comparisons
+        self.conditionalType = None
         
         # index of current instance of assignation
-        self.symbolIndex = 0
+        self.symbolIndex = None
         
         # symbol table values
         for key in symbolicTable:
@@ -29,9 +30,7 @@ class SemanticAnalysis:
         self.semanticFlags = {
             "DECLARE": False,
             "ASIGN": False,
-            "IF STAT": False,
-            "WHILE STAT": False,
-            "FOR STAT": False,
+            "CONDITIONAL": False,
             "OPERATION": [False, ""]
         }
         
@@ -46,36 +45,49 @@ class SemanticAnalysis:
         # review of semantic flags
         if self.semanticFlags["DECLARE"] == True:
             
+            # Checking the declaration process
             if current_token == "identifier":
                 
-                if current_token in self.names: 
+                # If the current instance is already declared
+                if current_instance in self.names: 
                     print("Error: semantic error while declaring")
                     return False
                 
+                # Other wises it is written on the "symboltable"
                 self.names.append(self.tokens["tokens"][index])
                 
+            # Now, to check corresponding type
             elif current_token in self.dataTypes:
                 self.types.append(current_token)
                 symbolicTable["value"].append(self.tokens["tokens"][index])
                 
+            # By the end seting the flag to flase when the statement is aready completed
             elif current_token in [";", "{"]:
                 self.semanticFlags["DECLARE"] = False
         
+
         elif self.semanticFlags["ASIGN"] == True:
             operation = self.semanticFlags["OPERATION"]
             
-            if ((current_token == "identifier" and 
-                current_instance in self.names and
-                self.types[self.symbolIndex] == self.types[self.names.index(current_instance)])):
+            if (current_token == "identifier"):
                 
-                indesToID = self.names.index(current_instance)
+                if not (current_instance in self.names): 
+                    
+                    print("Error: Variable not declared")
+                    return False
+                
+                indexToID = self.names.index(current_instance)
                 
                 if operation[0] == True:
-                    if not self.operation(float(self.values[indesToID]), float(self.holder), operation[1]):
+                    if self.types[indexToID] == "integer" and not self.operation(float(self.values[indexToID]), float(self.holder), operation[1]):
                         return False
-                    
+
+                    elif not self.operation(self.values[indexToID], self.holder, operation[1]):
+                        return False
+
+
                 else:
-                    self.holder = self.values[indesToID]
+                    self.holder = self.values[indexToID]
             
             elif (current_token in self.dataTypes and self.types[self.symbolIndex] == current_token):
                 if operation[0] == True:
@@ -93,10 +105,28 @@ class SemanticAnalysis:
                 symbolicTable["value"][self.symbolIndex] = self.holder
                 
                 self.holder = None
+                self.symbolIndex = None
                 self.semanticFlags["OPERATION"] = [False, ""]
                 
-        elif any(self.semanticFlags[flag] for flag in ["IF STAT", "WHILE STAT"]):
-            
+        elif self.semanticFlags["CONDITIONAL"] == True:
+            if current_token == "identifier":
+                # Check if variable is declared
+                if not (self.checkIdentifierExistence(current_instance)):
+                    print("Error: Variable not declared")
+                    return False
+                
+                elif not (self.types[self.names.index(current_instance)] == self.dataTypes[self.conditionalType]):
+                    print("Error: Type mismatch")
+                    return False
+                
+            elif current_token in self.dataTypes:
+                if not(self.dataTypes[self.conditionalType] == current_token):
+                    print("Error: Type mismatch")
+                    return False
+
+            elif current_token in ["do", "then"]:
+                self.semanticFlags["CONDITIONAL"] = False
+                self.conditionalType = None
                 
         return True
             
@@ -117,6 +147,12 @@ class SemanticAnalysis:
                     print("Error: division by zero")
                     return False
                 self.holder = current_instance / current_holder
+                
+            if self.types[self.symbolIndex] == "integet":
+                self.holder = int(self.holder)
+                
+            else:
+                self.holder = float(self.holder)
                 
         elif self.types[self.symbolIndex] == "string":
             if operation == "+":
@@ -145,27 +181,46 @@ class SemanticAnalysis:
         
         # switch of corresponding procedure
         if "DECLARE" in currentProduction:
-            if current_instance in self.names: 
+            if self.checkIdentifierExistence(current_instance): 
                 print("Error: already existing declaration")
                 return False
             
             self.semanticFlags["DECLARE"] = True
             
         elif currentProduction  == "ASIGN":
-            if current_instance in self.names:
-                self.semanticFlags["ASIGN"] = True
-                self.symbolIndex = self.names.index(self.tokens["tokens"][index])
-            else:
-                print("Error: Variable not declared")
+            if not (self.checkIdentifierExistence(current_instance)):
+                print("Error: undeclared identifier")
                 return False
-                
-        elif currentProduction == "IF STAT":
-            self.semanticFlags["IF STAT"] = True
-            
-        elif currentProduction == "WHILE STAT":
-            self.semanticFlags["WHILE STAT"] = True
 
-        elif currentProduction == "FOR STAT":
-            self.semanticFlags["FOR STAT"] = True
+            self.semanticFlags["ASIGN"] = True
+            self.symbolIndex = self.names.index(current_instance)
+                
+        elif currentProduction in ["IF STAT", "WHILE STAT", "FOR STAT"]:
+            if not (self.determineConditioal(index)):
+                return False
+
+            self.semanticFlags["CONDITIONAL"] = True
     
+        return True
+
+    def checkIdentifierExistence(self, id):
+        if id in self.names:
+            return True
+        else:
+            return False
+
+    def determineConditioal(self, index):
+        token = self.tokens["tokensAnalysis"][index + 1]
+        tokenIdentity = self.tokens["tokens"][index + 1]
+
+        if (token == "identifier"):
+            if not (self.checkIdentifierExistence(tokenIdentity)):
+                print("Error: undeclared identifier")
+                return False
+
+            self.conditionalType = self.dataTypes.index(self.types[self.names.index(tokenIdentity)])
+
+        else:
+            self.conditionalType = self.dataTypes.index(tokenIdentity)
+
         return True

@@ -43,3 +43,6 @@ package-lock.json
 
 # Ignore the virtual environment
 .venv/
+
+# Ignore tests cache
+.pytest_cache/

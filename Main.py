@@ -18,33 +18,37 @@ if __name__ == "__main__":
     myTokens = myInstance.generateToken(content)
     
     print(myTokens)
-    
-    result = parser.parse(myTokens)
-    
-    print(f"Example: {content} - {'Valid' if result else 'Invalid'}")
-    
-    print("\n")
-    
-    showTable = ""
 
-    # Print the headers (keys of the symbol table)
-    for key in symbolicTable.keys():
-        showTable += f"{key}\t\t"
-    showTable += "\n"
+    if myTokens == []:
+        print("There is something wrong with the lexical analysis")
+    
+    else: 
+        result = parser.parse(myTokens)
+        
+        print(f"Example: {content} - {'Valid' if result else 'Invalid'}")
+        
+        print("\n")
+        
+        showTable = ""
 
-    # Print a separator line for better readability
-    showTable += "-" * 8 * len(symbolicTable) + "\n"
-
-    # Get the maximum number of rows from the longest list in the dictionary
-    num_rows = max(len(values) for values in symbolicTable.values())
-
-    # Print each row
-    for row_index in range(num_rows):
+        # Print the headers (keys of the symbol table)
         for key in symbolicTable.keys():
-            if row_index < len(symbolicTable[key]):
-                showTable += f"{symbolicTable[key][row_index]}\t\t"
-            else:
-                showTable += "\t\t"  # Add empty space if the list is shorter
+            showTable += f"{key}\t\t"
         showTable += "\n"
 
-    print(showTable)
+        # Print a separator line for better readability
+        showTable += "-" * 8 * len(symbolicTable) + "\n"
+
+        # Get the maximum number of rows from the longest list in the dictionary
+        num_rows = max(len(values) for values in symbolicTable.values())
+
+        # Print each row
+        for row_index in range(num_rows):
+            for key in symbolicTable.keys():
+                if row_index < len(symbolicTable[key]):
+                    showTable += f"{symbolicTable[key][row_index]}\t\t"
+                else:
+                    showTable += "\t\t"  # Add empty space if the list is shorter
+            showTable += "\n"
+
+        print(showTable)

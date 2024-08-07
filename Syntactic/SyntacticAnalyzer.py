@@ -22,7 +22,7 @@ class LL1Parser:
             top = stack.pop()
             
             # set for each semantic flag is any conincidence
-            semantics.semanticFlagsSet(index, top)
+            if not semantics.semanticFlagsSet(index, top): return False
             
             # token of syntactic analysis
             current_token = tokens["tokensAnalysis"][index]
