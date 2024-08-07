@@ -1,6 +1,6 @@
 ### Main execution
-** The main execution of the program is done in the `main` file.
-by runing this file you can execute the whole code **
+**The main execution of the program is done in the `main` file.
+by runing this file you can execute the whole code**
 
 ## Lexical Analysis
 The lexical analysis is done in the `Lexical` folder.
